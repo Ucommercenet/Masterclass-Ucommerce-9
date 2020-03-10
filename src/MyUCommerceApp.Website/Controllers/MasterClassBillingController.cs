@@ -5,10 +5,11 @@ using UCommerce.EntitiesV2;
 using MyUCommerceApp.Website.Models;
 using Ucommerce.Api;
 using UCommerce.Infrastructure;
+using Umbraco.Web.Mvc;
 
 namespace MyUCommerceApp.Website.Controllers
 {
-	public class MasterClassBillingController : Umbraco.Web.Mvc.RenderMvcController
+	public class MasterClassBillingController : RenderMvcController
     {
 		private ITransactionLibrary TransactionLibrary => ObjectFactory.Instance.Resolve<ITransactionLibrary>();
 

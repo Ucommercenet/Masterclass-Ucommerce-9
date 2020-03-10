@@ -1,9 +1,10 @@
 ﻿using System.Web.Mvc;
 using MyUCommerceApp.Website.Models;
+using Umbraco.Web.Mvc;
 
 namespace MyUCommerceApp.Website.Controllers
 {
-	public class MasterClassBasketController : Umbraco.Web.Mvc.RenderMvcController
+	public class MasterClassBasketController : RenderMvcController
     {
         [HttpGet]
         public ActionResult Index()
