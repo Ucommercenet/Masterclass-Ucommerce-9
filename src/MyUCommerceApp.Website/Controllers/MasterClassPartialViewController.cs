@@ -16,27 +16,12 @@ namespace MyUCommerceApp.Website.Controllers
 
         public ActionResult CategoryNavigation(string slug)
         {
-            ResultSet<Category> categories = CatalogLibrary.GetRootCategories(Constants.CatalogId);
 
             var categoryNavigation = new CategoryNavigationViewModel
             {
-                Categories = MapCategories(categories, slug)
             };
 
             return View("/views/mc/PartialViews/CategoryNavigation.cshtml", categoryNavigation);
-        }
-
-        private IList<CategoryViewModel> MapCategories(IEnumerable<Category> categoriesToMap, string selectedSlug = null)
-        {
-            return categoriesToMap.Select(category => new CategoryViewModel
-            {
-                Name = category.DisplayName,
-                Description = category.Description,
-                Url = $"/category?slug={category.Slug}",
-                Categories = category.Slug == selectedSlug
-                    ? MapCategories(CatalogLibrary.GetCategories(category.Categories))
-                    : new List<CategoryViewModel>(),
-            }).ToList();
         }
     }
 }
