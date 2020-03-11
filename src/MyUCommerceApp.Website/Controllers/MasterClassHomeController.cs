@@ -7,6 +7,8 @@ namespace MyUCommerceApp.Website.Controllers
         [HttpGet]
 		public ActionResult Index()
 		{
+			
+			
 			return View("/views/mc/frontpage.cshtml");
 		}
 	}
