@@ -1,23 +1,39 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Web.Mvc;
 using MyUCommerceApp.Website.Models;
+using Ucommerce.Api;
+using UCommerce.Infrastructure;
+using UCommerce.Search;
+using UCommerce.Search.Models;
 
 namespace MyUCommerceApp.Website.Controllers
 {
-	public class MasterClassPartialViewController : Umbraco.Web.Mvc.SurfaceController
+    public class MasterClassPartialViewController : Umbraco.Web.Mvc.SurfaceController
     {
+        private ICatalogLibrary CatalogLibrary => ObjectFactory.Instance.Resolve<ICatalogLibrary>();
+
         public ActionResult CategoryNavigation()
         {
-            var categoryNavigation = new CategoryNavigationViewModel();
+            ResultSet<Category> categories = CatalogLibrary.GetRootCategories(new Guid("8C9037CC-F1F2-F477-7F15-999D1D55E29D"));
+
+            var categoryNavigation = new CategoryNavigationViewModel
+            {
+                Categories = MapCategories(categories)
+            };
 
             return View("/views/mc/PartialViews/CategoryNavigation.cshtml", categoryNavigation);
         }
 
-        private IList<CategoryViewModel> MapCategories(ICollection<UCommerce.EntitiesV2.Category> categoriesToMap)
+        private IList<CategoryViewModel> MapCategories(IEnumerable<Category> categoriesToMap)
         {
-            var categoriesToReturn = new List<CategoryViewModel>();
-
-            return categoriesToReturn;
+            return categoriesToMap.Select(category => new CategoryViewModel
+            {
+                Name = category.DisplayName,
+                Description = category.Description,
+                Url = $"/category?slug={category.Slug}"
+            }).ToList();
         }
     }
 }

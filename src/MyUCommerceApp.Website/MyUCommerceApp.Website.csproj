@@ -264,6 +264,9 @@
     <Reference Include="UCommerce.Infrastructure">
       <HintPath>..\..\lib\uCommerce\UCommerce.Infrastructure.dll</HintPath>
     </Reference>
+    <Reference Include="UCommerce.Search">
+      <HintPath>..\..\lib\uCommerce\UCommerce.Search.dll</HintPath>
+    </Reference>
     <Reference Include="Umbraco.Core, Version=8.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\UmbracoCms.Core.8.5.2\lib\net472\Umbraco.Core.dll</HintPath>
     </Reference>
@@ -316,6 +319,7 @@
     <Compile Include="Models\CategoryViewModel.cs" />
     <Compile Include="Models\OrderlineViewModel.cs" />
     <Compile Include="Models\PaymentViewModel.cs" />
+    <Compile Include="Models\PriceViewModel.cs" />
     <Compile Include="Models\ProductViewModel.cs" />
     <Compile Include="Models\PurchaseOrderViewModel.cs" />
     <Compile Include="Models\ShippingViewModel.cs" />
@@ -326,12 +330,6 @@
       <Project>{2c30d90d-410c-4d19-b43c-211132df3eb1}</Project>
       <Name>MyUCommerceApp.BusinessLogic</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_Code\Addresses.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_Code\Navigation.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Umbraco\ucommerce\css\custom.css" />
@@ -365,6 +363,7 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="App_Code\" />
     <Folder Include="Umbraco\ucommerce\Apps\DataTypes\" />
     <Folder Include="Umbraco\ucommerce\Apps\MyCatalogContext\" />
     <Folder Include="Umbraco\ucommerce\Apps\Pipelines\ToCompleted\" />

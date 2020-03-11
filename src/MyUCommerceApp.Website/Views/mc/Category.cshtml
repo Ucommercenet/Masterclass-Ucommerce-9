@@ -16,14 +16,14 @@
 {
     <div>
         <span>@product.Name</span>
-		@if (product.PriceCalculation != null && product.PriceCalculation.IsDiscounted)
+		@if (product.Price != null && product.Price.IsDiscounted)
 		{
-			<span style="text-decoration: line-through;">@product.PriceCalculation.ListPrice.Amount</span>
+			<span style="text-decoration: line-through;">@product.Price.ListPrice</span>
 		}
 
-		@if (product.PriceCalculation != null)
+		@if (product.Price != null)
 		{
-			<span>@product.PriceCalculation.YourPrice.Amount</span>
+			<span>@product.Price.YourPrice</span>
 		}
         <a href="@product.Url">More info</a>
     </div>

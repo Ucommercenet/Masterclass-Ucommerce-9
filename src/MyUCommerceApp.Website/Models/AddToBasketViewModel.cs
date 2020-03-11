@@ -11,5 +11,6 @@ namespace MyUCommerceApp.Website.Models
 
 		public string VariantSku { get; set; }
 
+		public string Slug { get; set; }
 	}
 }
