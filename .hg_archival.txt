@@ -1,4 +1,0 @@
-repo: c263062529fc565f49f7dc7b113b2c49751e6ee3
-node: c6d8694fbc1768ee93c44b2fe4eef8844a16bbfb
-branch: default
-tag: Clean Visual Studio 2013 version
