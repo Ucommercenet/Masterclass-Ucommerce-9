@@ -14,25 +14,28 @@ namespace MyUCommerceApp.Website.Controllers
     {
         private ICatalogLibrary CatalogLibrary => ObjectFactory.Instance.Resolve<ICatalogLibrary>();
 
-        public ActionResult CategoryNavigation()
+        public ActionResult CategoryNavigation(string slug)
         {
-            ResultSet<Category> categories = CatalogLibrary.GetRootCategories(new Guid("8C9037CC-F1F2-F477-7F15-999D1D55E29D"));
+            ResultSet<Category> categories = CatalogLibrary.GetRootCategories(Constants.CatalogId);
 
             var categoryNavigation = new CategoryNavigationViewModel
             {
-                Categories = MapCategories(categories)
+                Categories = MapCategories(categories, slug)
             };
 
             return View("/views/mc/PartialViews/CategoryNavigation.cshtml", categoryNavigation);
         }
 
-        private IList<CategoryViewModel> MapCategories(IEnumerable<Category> categoriesToMap)
+        private IList<CategoryViewModel> MapCategories(IEnumerable<Category> categoriesToMap, string selectedSlug = null)
         {
             return categoriesToMap.Select(category => new CategoryViewModel
             {
                 Name = category.DisplayName,
                 Description = category.Description,
-                Url = $"/category?slug={category.Slug}"
+                Url = $"/category?slug={category.Slug}",
+                Categories = category.Slug == selectedSlug
+                    ? MapCategories(CatalogLibrary.GetCategories(category.Categories))
+                    : new List<CategoryViewModel>(),
             }).ToList();
         }
     }

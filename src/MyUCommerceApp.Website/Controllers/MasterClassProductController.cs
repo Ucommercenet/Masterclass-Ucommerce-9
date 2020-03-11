@@ -5,6 +5,7 @@ using Ucommerce.Api;
 using UCommerce.Catalog.Models;
 using UCommerce.Infrastructure;
 using UCommerce.Search;
+using UCommerce.Search.Definitions;
 using UCommerce.Search.Models;
 
 namespace MyUCommerceApp.Website.Controllers
@@ -19,7 +20,7 @@ namespace MyUCommerceApp.Website.Controllers
         [HttpGet]
         public ActionResult Index(string slug)
         {
-            Product product = ProductIndex.Find().Where(p => p.Slug == slug).Single();
+            Product product = ProductIndex.Find().Where(p => p.Slug == slug).First();
             ResultSet<Product> variants = ProductIndex.Find().Where(v => product.Variants.Contains(v.Guid)).ToList();
             ProductPriceCalculationResult
                 prices = CatalogLibrary.CalculatePrices(variants.Select(p => p.Guid).ToList());
@@ -62,7 +63,8 @@ namespace MyUCommerceApp.Website.Controllers
         [HttpPost]
         public ActionResult Index(AddToBasketViewModel model)
         {
-            TransactionLibrary.AddToBasket(1, model.Sku, model.VariantSku);
+            var catalog = CatalogLibrary.GetCatalog(Constants.CatalogId);
+            TransactionLibrary.AddToBasket(catalog.Name, 1, model.Sku, model.VariantSku);
 
             return Index(model.Slug);
         }

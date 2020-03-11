@@ -15,17 +15,19 @@ namespace MyUCommerceApp.Website.Controllers
     public class MasterClassCategoryController : Umbraco.Web.Mvc.RenderMvcController
     {
         private IIndex<Category> CategoryIndex => ObjectFactory.Instance.Resolve<IIndex<Category>>();
-        private IIndex<Product> ProductIndex => ObjectFactory.Instance.Resolve<IIndex<Product>>();
         private ICatalogLibrary CatalogLibrary => ObjectFactory.Instance.Resolve<ICatalogLibrary>();
 
         [HttpGet]
         public ActionResult Index(string slug)
         {
-            var category = CategoryIndex.Find().Where(cat => cat.Slug == slug).SingleOrDefault();
+            var category = CategoryIndex.Find().Where(cat => cat.Slug == slug).FirstOrDefault();
+            
             var products = CatalogLibrary.GetProducts(category.Guid);
+            
             ProductPriceCalculationResult
                 prices = CatalogLibrary.CalculatePrices(products.Select(p => p.Guid).ToList());
 
+            
             var categoryViewModel = new CategoryViewModel
             {
                 Name = category.DisplayName,
@@ -53,13 +55,15 @@ namespace MyUCommerceApp.Website.Controllers
             return productViews;
         }
 
-        private PriceViewModel MapPrice(ProductPriceCalculationResult.Item item)
+        private PriceViewModel MapPrice(ProductPriceCalculationResult.Item price)
         {
+            if (price == null) return new PriceViewModel();
+            
             return new PriceViewModel
             {
-                IsDiscounted = item.DiscountPercentage > 0M,
-                ListPrice = "$100",
-                YourPrice = "$80"
+                IsDiscounted = price.DiscountPercentage > 0M,
+                ListPrice = price.ListPriceInclTax.ToString("N"),
+                YourPrice = price.PriceInclTax.ToString("N")
             };
         }
     }

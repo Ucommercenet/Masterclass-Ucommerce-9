@@ -62,6 +62,14 @@
       <HintPath>..\..\lib\uCommerce\UCommerce.Infrastructure.dll</HintPath>
     </Reference>
   </ItemGroup>
+  <ItemGroup>
+    <Content Include="Datatypes\.keep" />
+    <Content Include="Pipelines\.keep" />
+    <Content Include="Pricing\.keep" />
+    <Content Include="Shipping\.keep" />
+    <Content Include="SiteContext\.keep" />
+    <Content Include="Tax\.keep" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\AutoMapper.3.3.1\tools\AutoMapper.targets" Condition="Exists('..\packages\AutoMapper.3.3.1\tools\AutoMapper.targets')" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

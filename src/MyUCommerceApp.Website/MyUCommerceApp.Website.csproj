@@ -303,6 +303,7 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controllers\Constants.cs" />
     <Compile Include="Controllers\MasterClassBasketController.cs" />
     <Compile Include="Controllers\MasterClassBillingController.cs" />
     <Compile Include="Controllers\MasterClassCategoryController.cs" />
@@ -332,8 +333,9 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Umbraco\ucommerce\css\custom.css" />
-    <Content Include="web.config" />
+    <Content Include="web.config">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Views\mc\AddressDetails.cshtml" />
     <Content Include="Views\mc\Basket.cshtml" />
     <Content Include="Views\mc\Category.cshtml" />
